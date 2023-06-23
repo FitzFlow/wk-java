@@ -8,6 +8,7 @@ import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.entity.Entity;
 import javafx.scene.input.KeyCode;
 import java.util.Map;
+import javafx.scene.text.Text;
 
 public class App extends GameApplication {
     public static void main(String[] args) {
@@ -28,14 +29,23 @@ public class App extends GameApplication {
         FXGL.getGameWorld().addEntityFactory(new Factory());
         player = FXGL.entityBuilder()
             .at(pos_x, pos_y)
-            .view(new Rectangle(25, 25, Color.BLUE))
+            .view("cube.png")
             .buildAndAttach();
         ennemy = FXGL.spawn("enemy", 5, 5);
     }
 
     @Override
     protected void initGameVars(Map<String, Object> vars) {
-        vars.put("pixelsMoved", 0);
+        vars.put("pixelsMoved","Salut");
+    }
+
+    protected void initUI() {
+        Text textPixels = new Text("Salut");
+        textPixels.setTranslateX(50);
+        textPixels.setTranslateY(100);
+        FXGL.getGameScene().addUINode(textPixels);
+        /*textPixels.textProperty().bind(FXGL.getWorldProperties().intProperty("pixelsMoved").asString());*/
+        textPixels.textProperty().bind(FXGL.getWorldProperties().stringProperty("pixelsMoved"));
     }
 
     @Override
